@@ -15,7 +15,12 @@
 
 
 #include <memory>
+#include <assert.h>
+
+#include "async.hpp"
 #include "chain.h"
+#include "string.hpp"
+#include "policy.hpp"
 
 class math {
 
@@ -27,6 +32,37 @@ public:
     float prod(float rhs, float lhs){ return rhs * lhs; }
 };
 
+
+int main(int argc, char ** argv)
+{
+    mpp::async::thread_worker worker;
+    worker.perform();
+
+    while (worker.isWorking()) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::cerr << "."  << std::flush;
+    }
+
+    auto result = worker.result();
+
+    typedef mpp::policy::operation<mpp::policy::HelloWorldOp> defaultOp;
+
+    defaultOp op;
+
+    op.exec();
+
+    mpp::wstring utf8("がんばるとびうお");
+
+    auto w = utf8.convert();
+
+    std::cerr << utf8.get() << std::endl;
+    std::wcerr << w << std::endl;
+
+    assert( utf8.get().length() == w.length() );
+
+}
+
+/*
 int main(int argc, char ** argv)
 {
     using std::placeholders::_1;
@@ -62,3 +98,4 @@ int main(int argc, char ** argv)
 
     return 0;
 }
+*/

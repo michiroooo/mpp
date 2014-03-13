@@ -7,10 +7,8 @@
  *
  */
 
-#ifndef mpp_
-#define mpp_
-
-#pragma GCC visibility push(default)
+#ifndef MPP_CHAIN_HPP
+#define MPP_CHAIN_HPP
 
 #include <iostream>
 #include <functional>
@@ -42,6 +40,4 @@ namespace mpp { namespace func {
 
 } }
 
-
-#pragma GCC visibility pop
-#endif
+#endif //MPP_CHAIN_HPP
